@@ -1,0 +1,272 @@
+/* #9eb5b3	(158,181,179)
+#9ea6a2	(158,166,162)
+#cae2d4	(158,181,168)
+#6e7a73	(110,122,115)
+#cedad9 (206,218,217)
+font-family: 'Sigmar One', cursive;
+font-family: 'Roboto Condensed', sans-serif;
+*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* background-color: #cedad9; */
+  background-color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  background-image: url("images/background3.svg");
+}
+
+main {
+  display: flex;
+}
+
+header {
+  margin: .5em;
+  margin-left: 4.5em;
+  /* margin-bottom: .25em; */
+}
+
+.display header {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  margin: 0;
+}
+
+h1 {
+  font-family: 'Sigmar One', cursive;
+  font-size: 3rem;
+  /* display: inline; */
+  background-color: #DBDBDB;
+  border: 5px solid #414042;
+  padding: .25rem .5rem;
+  margin: 0;
+  width: max-content;
+  /* height: 2rem; */
+}
+
+.display h1 {
+  font-size: 2em;
+}
+
+/*MODE BUTTONS  */
+.mode {
+  /* flex-grow: .25; */
+  width: 10vw;
+}
+
+.mode button {
+  background-color: #414042;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  outline: none;
+  display: block;
+  width: 50px;
+  margin-left: auto;
+  border-left: 5px solid #414042;
+}
+
+.mode i {
+  color: #DBDBDB;
+}
+
+.mode button:first-child {
+  border-top: 5px solid #414042;
+  border-bottom: 2.5px solid #414042;
+}
+
+.mode button:last-child {
+  border-top: 2.5px solid #414042;
+  border-bottom: 5px solid #414042;
+}
+
+#active {
+  background-color: #DBDBDB;
+  /* border-top: 5px solid #6e7a73;
+  border-bottom: 5px solid #6e7a73;
+  border-left: 5px solid #6e7a73; */
+}
+
+#active i {
+  color: black;
+}
+
+/* #active1 {
+  background-color: #cedad9;
+  border-bottom: 5px solid #6e7a73;
+  border-left: 5px solid #6e7a73;
+} */
+/*MAP WINDOW  */
+.view {
+  /* flex-grow: 3; */
+  background-color: white;
+  border: 5px solid #414042;
+  height: 80vh;
+  width: 60vw;
+  overflow: hidden;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.box {
+  border: 1px solid #909091;
+  width: 100px;
+  height: 100px;
+}
+
+.grey {
+  background-color: #9ea6a2;
+}
+
+.items {
+  /* flex-grow: .5; */
+  background-color: #909091;
+  width: 30vw;
+  height: 72vh;
+  overflow-y: auto;
+}
+
+.items p {
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: .75em;
+  width: max-content;
+}
+
+.accordion {
+  background-color: #909091;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-bottom: 2px solid #DBDBDB;
+  outline: none;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.accordion:hover {
+  background-color: #7B7B7C;
+}
+
+nav section {
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.first {
+  display: flex;
+}
+
+.accordion:first-child {
+  border: none;
+}
+
+section img {
+  width: 100px;
+  height: 100px;
+  padding: 2px;
+  margin: .5em;
+  margin-bottom: .25em;
+  border: 2px dashed #DBDBDB;
+}
+
+.layer {
+  z-index: 2;
+  position: relative;
+}
+
+.replace {
+  position: relative;
+}
+
+.done {
+  height: 8vh;
+  background-color: #909091;
+  padding: .5em 0;
+  display: flex;
+  /* justify-content: space-evenly;
+  margin: auto; */
+  justify-content: center;
+}
+
+.done button {
+  background-color: #DBDBDB;
+  cursor: pointer;
+  padding: .25em 1em;
+  border: none;
+  outline: none;
+  /* width: 50px; */
+  /* margin-left: auto; */
+  margin: 0 .25em;
+  border: 2px solid #7B7B7C;
+  min-width: 70px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 40%;
+  background-color: rgba(219, 219, 219, .75);
+  padding: 5px;
+}
+
+footer a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.fa-undo, .fa-times {
+  position: absolute;
+  z-index: 3;
+}
+
+/*STYLE FOR DISPLAY PAGE*/
+.display .view {
+  background-color: #2d2f2f;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  cursor: all-scroll;
+}
+
+.display .box {
+  opacity: 0;
+  background-color: white;
+}
+
+/*
+.display footer {
+  left: 0;
+  margin: auto;
+} */
+.tiles {
+  display: none;
+}
+
+/*STYLE FOR WHEN INDEX IS IN DISPLAY MODE*/
+.displaymode .items, .displaymode .done {
+  display: none;
+}
+
+.displaymode .view {
+  width: 80vw;
+}

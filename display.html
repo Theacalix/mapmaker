@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Maker</title>
+  <link href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed%7CSigmar+One" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+
+  <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.min.js"></script> -->
+  <script type="module" src="modulefunc.js"></script>
+</head>
+
+<body class="display">
+  <header>
+    <h1>Map Maker</h1>
+  </header>
+  <div class="view">
+    <div class="inner">
+      <div class="row">
+        <div class="box" id="a1"></div>
+        <div class="box" id="a2"></div>
+        <div class="box" id="a3"></div>
+        <div class="box" id="a4"></div>
+        <div class="box" id="a5"></div>
+        <div class="box" id="a6"></div>
+        <div class="box" id="a7"></div>
+        <div class="box" id="a8"></div>
+        <div class="box" id="a9"></div>
+        <div class="box" id="a10"></div>
+        <div class="box" id="a11"></div>
+        <div class="box" id="a12"></div>
+        <div class="box" id="a13"></div>
+        <div class="box" id="a14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="b1"></div>
+        <div class="box" id="b2"></div>
+        <div class="box" id="b3"></div>
+        <div class="box" id="b4"></div>
+        <div class="box" id="b5"></div>
+        <div class="box" id="b6"></div>
+        <div class="box" id="b7"></div>
+        <div class="box" id="b8"></div>
+        <div class="box" id="b9"></div>
+        <div class="box" id="b10"></div>
+        <div class="box" id="b11"></div>
+        <div class="box" id="b12"></div>
+        <div class="box" id="b13"></div>
+        <div class="box" id="b14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="c1"></div>
+        <div class="box" id="c2"></div>
+        <div class="box" id="c3"></div>
+        <div class="box" id="c4"></div>
+        <div class="box" id="c5"></div>
+        <div class="box" id="c6"></div>
+        <div class="box" id="c7"></div>
+        <div class="box" id="c8"></div>
+        <div class="box" id="c9"></div>
+        <div class="box" id="c10"></div>
+        <div class="box" id="c11"></div>
+        <div class="box" id="c12"></div>
+        <div class="box" id="c13"></div>
+        <div class="box" id="c14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="d1"></div>
+        <div class="box" id="d2"></div>
+        <div class="box" id="d3"></div>
+        <div class="box" id="d4"></div>
+        <div class="box" id="d5"></div>
+        <div class="box" id="d6"></div>
+        <div class="box" id="d7"></div>
+        <div class="box" id="d8"></div>
+        <div class="box" id="d9"></div>
+        <div class="box" id="d10"></div>
+        <div class="box" id="d11"></div>
+        <div class="box" id="d12"></div>
+        <div class="box" id="d13"></div>
+        <div class="box" id="d14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="e1"></div>
+        <div class="box" id="e2"></div>
+        <div class="box" id="e3"></div>
+        <div class="box" id="e4"></div>
+        <div class="box" id="e5"></div>
+        <div class="box" id="e6"></div>
+        <div class="box" id="e7"></div>
+        <div class="box" id="e8"></div>
+        <div class="box" id="e9"></div>
+        <div class="box" id="e10"></div>
+        <div class="box" id="e11"></div>
+        <div class="box" id="e12"></div>
+        <div class="box" id="e13"></div>
+        <div class="box" id="e14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="f1"></div>
+        <div class="box" id="f2"></div>
+        <div class="box" id="f3"></div>
+        <div class="box" id="f4"></div>
+        <div class="box" id="f5"></div>
+        <div class="box" id="f6"></div>
+        <div class="box" id="f7"></div>
+        <div class="box" id="f8"></div>
+        <div class="box" id="f9"></div>
+        <div class="box" id="f10"></div>
+        <div class="box" id="f11"></div>
+        <div class="box" id="f12"></div>
+        <div class="box" id="f13"></div>
+        <div class="box" id="f14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="g1"></div>
+        <div class="box" id="g2"></div>
+        <div class="box" id="g3"></div>
+        <div class="box" id="g4"></div>
+        <div class="box" id="g5"></div>
+        <div class="box" id="g6"></div>
+        <div class="box" id="g7"></div>
+        <div class="box" id="g8"></div>
+        <div class="box" id="g9"></div>
+        <div class="box" id="g10"></div>
+        <div class="box" id="g11"></div>
+        <div class="box" id="g12"></div>
+        <div class="box" id="g13"></div>
+        <div class="box" id="g14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="h1"></div>
+        <div class="box" id="h2"></div>
+        <div class="box" id="h3"></div>
+        <div class="box" id="h4"></div>
+        <div class="box" id="h5"></div>
+        <div class="box" id="h6"></div>
+        <div class="box" id="h7"></div>
+        <div class="box" id="h8"></div>
+        <div class="box" id="h9"></div>
+        <div class="box" id="h10"></div>
+        <div class="box" id="h11"></div>
+        <div class="box" id="h12"></div>
+        <div class="box" id="h13"></div>
+        <div class="box" id="h14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="i1"></div>
+        <div class="box" id="i2"></div>
+        <div class="box" id="i3"></div>
+        <div class="box" id="i4"></div>
+        <div class="box" id="i5"></div>
+        <div class="box" id="i6"></div>
+        <div class="box" id="i7"></div>
+        <div class="box" id="i8"></div>
+        <div class="box" id="i9"></div>
+        <div class="box" id="i10"></div>
+        <div class="box" id="i11"></div>
+        <div class="box" id="i12"></div>
+        <div class="box" id="i13"></div>
+        <div class="box" id="i14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="j1"></div>
+        <div class="box" id="j2"></div>
+        <div class="box" id="j3"></div>
+        <div class="box" id="j4"></div>
+        <div class="box" id="j5"></div>
+        <div class="box" id="j6"></div>
+        <div class="box" id="j7"></div>
+        <div class="box" id="j8"></div>
+        <div class="box" id="j9"></div>
+        <div class="box" id="j10"></div>
+        <div class="box" id="j11"></div>
+        <div class="box" id="j12"></div>
+        <div class="box" id="j13"></div>
+        <div class="box" id="j14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="k1"></div>
+        <div class="box" id="k2"></div>
+        <div class="box" id="k3"></div>
+        <div class="box" id="k4"></div>
+        <div class="box" id="k5"></div>
+        <div class="box" id="k6"></div>
+        <div class="box" id="k7"></div>
+        <div class="box" id="k8"></div>
+        <div class="box" id="k9"></div>
+        <div class="box" id="k10"></div>
+        <div class="box" id="k11"></div>
+        <div class="box" id="k12"></div>
+        <div class="box" id="k13"></div>
+        <div class="box" id="k14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="l1"></div>
+        <div class="box" id="l2"></div>
+        <div class="box" id="l3"></div>
+        <div class="box" id="l4"></div>
+        <div class="box" id="l5"></div>
+        <div class="box" id="l6"></div>
+        <div class="box" id="l7"></div>
+        <div class="box" id="l8"></div>
+        <div class="box" id="l9"></div>
+        <div class="box" id="l10"></div>
+        <div class="box" id="l11"></div>
+        <div class="box" id="l12"></div>
+        <div class="box" id="l13"></div>
+        <div class="box" id="l14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="m1"></div>
+        <div class="box" id="m2"></div>
+        <div class="box" id="m3"></div>
+        <div class="box" id="m4"></div>
+        <div class="box" id="m5"></div>
+        <div class="box" id="m6"></div>
+        <div class="box" id="m7"></div>
+        <div class="box" id="m8"></div>
+        <div class="box" id="m9"></div>
+        <div class="box" id="m10"></div>
+        <div class="box" id="m11"></div>
+        <div class="box" id="m12"></div>
+        <div class="box" id="m13"></div>
+        <div class="box" id="m14"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="n1"></div>
+        <div class="box" id="n2"></div>
+        <div class="box" id="n3"></div>
+        <div class="box" id="n4"></div>
+        <div class="box" id="n5"></div>
+        <div class="box" id="n6"></div>
+        <div class="box" id="n7"></div>
+        <div class="box" id="n8"></div>
+        <div class="box" id="n9"></div>
+        <div class="box" id="n10"></div>
+        <div class="box" id="n11"></div>
+        <div class="box" id="n12"></div>
+        <div class="box" id="n13"></div>
+        <div class="box" id="n14"></div>
+      </div>
+    </div>
+  </div>
+  <section class="tiles">
+    <img class="replace" src="images/floor.svg" alt="floor" id="floor">
+    <img class="replace" src="images/wall.svg" alt="single wall" id="single">
+    <img class="replace" src="images/corner.svg" alt=" corner wall" id="corner">
+    <img class="replace" src="images/box.svg" alt="u wall" id="u">
+    <img class="replace" src="images/parallel.svg" alt="parallel wall" id="parallel">
+    <img class="layer" src="images/door.svg" alt="door" id="door">
+    <img class="layer" src="images/arch.svg" alt="archway" id="arch">
+    <img class="layer" src="images/locked.svg" alt="locked door" id="lock">
+    <img class="layer" src="images/window.svg" alt="window" id="window">
+  </section>
+  <!-- <footer>
+    <a href="https://validator.w3.org/check?uri=referer">Valid HTML 5</a>
+    &#9679;
+
+    <a href="https://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a>
+    &#9679;
+
+    <a href="../index.html">Back to Portal</a>
+  </footer> -->
+  <script type="module" src="scriptdisplay.js"></script>
+</body>
