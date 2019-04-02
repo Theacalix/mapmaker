@@ -1,16 +1,16 @@
-// import {
-//   getLocal,
-//   startPan,
-//   endPan,
-//   storage
-// } from '/des157-g/prototype2/modulefunc.js'; //for github
 import {
   getLocal,
   startPan,
   endPan,
   storage
-}
-from '/modulefunc.js'; //for local
+} from '/des157-g/prototype2/modulefunc.js'; //for github
+// import {
+//   getLocal,
+//   startPan,
+//   endPan,
+//   storage
+// }
+// from '/modulefunc.js'; //for local
 
 const inner = document.querySelector('.inner');
 
