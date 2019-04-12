@@ -17,14 +17,12 @@ body {
   background-image: url("images/background3.svg");
 }
 
-main {
-  display: flex;
-}
-
 header {
-  margin: .5em;
-  margin-left: 4.5em;
+  margin: .5em 10vw;
+  /* margin-left: 4.5em; */
   /* margin-bottom: .25em; */
+  display: flex;
+  justify-content: space-between;
 }
 
 .display header {
@@ -49,6 +47,15 @@ h1 {
 
 .display h1 {
   font-size: 2em;
+}
+
+.edit {
+  display: none;
+  align-self: flex-end;
+}
+
+main {
+  display: flex;
 }
 
 /*MODE BUTTONS  */
@@ -206,7 +213,7 @@ section img {
   justify-content: center;
 }
 
-.done button {
+.done button, .edit button {
   background-color: #DBDBDB;
   cursor: pointer;
   padding: .25em 1em;
@@ -217,6 +224,12 @@ section img {
   margin: 0 .25em;
   border: 2px solid #7B7B7C;
   min-width: 70px;
+}
+
+.edit button {
+  margin-top: .5em;
+  /* margin-bottom: .5em; */
+  min-width: 91px;
 }
 
 footer {

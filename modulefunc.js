@@ -5,21 +5,34 @@ var curTile,
   initialY,
   offsetX = 0,
   offsetY = 0,
-  tiles = [];
+  tiles = [],
+  ignore;
 const inner = document.querySelector('.inner');
 const view = document.querySelector('.view');
 const boxRect = document.querySelector('.box').getBoundingClientRect();
 const cols = inner.childElementCount * boxRect.width;
 const rows = document.querySelector('.row').childElementCount * boxRect.height;
 
+function appendStore(key, delin, valApn) {
+  var val = storage.getItem(key);
+  storage.setItem(key, val + delin + valApn)
+}
+
 function getLocal(event) {
   console.log('page loaded');
   var keys = Object.keys(storage),
     key, box, items, tile, rotateAmt;
 
+  ignore = storage.getItem('ignore');
+  if (ignore) {
+    ignore = ignore.split(','); //set up ignore for checking
+  } else {
+    ignore = [];
+  }
+
   for (var i = 0; key = keys[i]; i++) {
-    if (key != 'show' && key != 'hide') {
-      console.log('key ' + key);
+    if (validKey(key)) {
+      console.log('adding key ' + key);
       box = document.querySelector('#' + key);
       items = storage.getItem(key);
       items = items.split(',');
@@ -45,6 +58,18 @@ function getLocal(event) {
       curTile = '';
     }
   }
+}
+
+function validKey(key) {
+  console.log('checking');
+  console.log('key: ' + key);
+  for (var i = 0; i < ignore.length; i++) {
+    if (key == ignore[i]) {
+      console.log('ignoring');
+      return false;
+    }
+  }
+  return true;
 }
 
 function getTile(toCopy) {
@@ -115,5 +140,6 @@ export {
   startPan,
   endPan,
   tiles,
-  storage
+  storage,
+  appendStore
 };

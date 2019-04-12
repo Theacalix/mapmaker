@@ -14,6 +14,8 @@ var dragged,
 var rotateAmt = 0;
 const storage = window.localStorage;
 var display;
+var showing = false;
+
 
 window.addEventListener('load', function() {
   m.getLocal();
@@ -37,21 +39,19 @@ document.querySelector('#display').addEventListener('click', function() {
   console.log('in display');
   document.querySelector('body').className = 'displaymode';
   console.log(document.querySelector('body').className);
-  window.open('display.html', 'display');
-  //display = window.open('display.html', 'display', 'height=600, width=500, toolbar');
 
-  //create and add edit button
-  var edit = document.createElement('BUTTON');
-  edit.innerHTML = '<i class="fas fa-edit"></i>';
-  edit.setAttribute('title', 'Back to Edit Mode');
-  document.querySelector('.mode').appendChild(edit);
-  edit.addEventListener('click', function() {
+  window.open('display.html', 'app', 'resizable=yes');
+  var edit = document.querySelector('.edit');
+  edit.style.display = 'block';
+  document.querySelector('#edit').addEventListener('click', function() {
     location.reload();
-  });
-
+  }); //return to edit page
+  document.querySelector('#showhide').addEventListener('click', showAll); //showhide all tiles
   var boxes = document.querySelectorAll('.box');
   storage.setItem('show', ''); //blank entry to add too
   storage.setItem('hide', '');
+  storage.setItem('showList', '');
+  storage.setItem('ignore', 'ignore,show,hide,showList');
 
   for (var i = 0; i < boxes.length; i++) {
     boxes[i].style.opacity = .5;
@@ -67,9 +67,11 @@ function show() {
   event.currentTarget.addEventListener('click', hide);
   //update storage
   if (storage.getItem('show') != '') {
-    storage.setItem('show', storage.getItem('show') + ',' + event.currentTarget.id);
+    m.appendStore('show', ',', event.currentTarget.id);
+    // storage.setItem('show', storage.getItem('show') + ',' + event.currentTarget.id);
   } else {
-    storage.setItem('show', storage.getItem('show') + event.currentTarget.id);
+    m.appendStore('show', '', event.currentTarget.id);
+    // storage.setItem('show', storage.getItem('show') + event.currentTarget.id);
   }
   //storage.setItem('changed', 'true');
 }
@@ -81,12 +83,43 @@ function hide() {
   event.currentTarget.addEventListener('click', show);
   //update storage
   if (storage.getItem('hide') != '') {
-    storage.setItem('hide', storage.getItem('hide') + ',' + event.currentTarget.id);
+    m.appendStore('hide', ',', event.currentTarget.id);
+    // storage.setItem('hide', storage.getItem('hide') + ',' + event.currentTarget.id);
   } else {
-    storage.setItem('hide', storage.getItem('hide') + event.currentTarget.id);
+    m.appendStore('hide', '', event.currentTarget.id);
+    // storage.setItem('hide', storage.getItem('hide') + event.currentTarget.id);
   }
   //storage.setItem('changed', 'true');
 }
+
+function showAll() {
+  console.log('inside showAll')
+  var boxes = document.querySelectorAll('.box');
+  if (showing) { //need to hide tiles
+    console.log('hiding all');
+    for (var i = 0; i < boxes.length; i++) {
+      if (boxes[i].style.opacity == 1) { //box is visible
+        boxes[i].click(); //hide box;
+      }
+    }
+    event.target.innerHTML = 'Show All';
+    event.target.style.backgroundColor = '#DBDBDB';
+    event.target.setAttribute('title', 'Show All Tiles');
+    showing = false;
+  } else { //need to show tiles
+    console.log('showing all');
+    for (var i = 0; i < boxes.length; i++) {
+      if (boxes[i].style.opacity == .5) { //box is hidden
+        boxes[i].click(); //show box;
+      }
+    }
+    event.target.innerHTML = 'Hide All';
+    event.target.style.backgroundColor = '#909091';
+    event.target.setAttribute('title', 'Hide All Tiles');
+    showing = true;
+  }
+}
+
 //ACCORDION MENU
 for (var i = 0; i < acc.length; i++) {
   acc[i].addEventListener('click', function() {
@@ -251,7 +284,8 @@ function drop(event) {
         tile.style.top = (-100 * count) + 'px';
         parent.appendChild(tile);
         // console.log(storeTile);
-        storage.setItem(parent.id, storage.getItem(parent.id) + ',' + storeTile);
+        m.appendStore(parent.id, ',', storeTile);
+        // storage.setItem(parent.id, storage.getItem(parent.id) + ',' + storeTile);
       }
       console.log('Storing: ' + parent.id + ',' + storage.getItem(parent.id));
     }
