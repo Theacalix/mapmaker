@@ -6,7 +6,7 @@ import {
   showPrev,
   appendStore
 }
-from '/des157-g/prototype2/modulefunc.js'; //for github
+from '/mapmaker/modulefunc.js'; //for github
 // from '/modulefunc.js'; //for local
 
 const inner = document.querySelector('.inner');

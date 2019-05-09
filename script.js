@@ -1,6 +1,6 @@
 'use strict';
 console.log('reading js');
-import * as m from '/des157-g/prototype2/modulefunc.js'; //for github
+import * as m from '/mapmaker/modulefunc.js'; //for github
 // import * as m from '/modulefunc.js'; //for local
 const acc = document.querySelectorAll('.accordion');
 const but = document.querySelectorAll('.mode button');
