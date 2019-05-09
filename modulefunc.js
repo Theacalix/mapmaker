@@ -132,6 +132,18 @@ function endPan() {
   inner.removeEventListener('mousemove', pan);
 }
 
+function showPrev() {
+  let showList = storage.getItem('showList');
+  console.log(showList);
+
+  showList = showList.split(',');
+  for (let i = 0; i < showList.length; i++) {
+    if (showList[i] != '') {
+      document.querySelector('#' + showList[i]).style.opacity = 1;
+    }
+  }
+}
+
 export {
   getLocal,
   getTile,
@@ -141,5 +153,6 @@ export {
   endPan,
   tiles,
   storage,
+  showPrev,
   appendStore
 };

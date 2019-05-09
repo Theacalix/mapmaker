@@ -3,6 +3,7 @@ import {
   startPan,
   endPan,
   storage,
+  showPrev,
   appendStore
 }
 from '/des157-g/prototype2/modulefunc.js'; //for github
@@ -10,17 +11,20 @@ from '/des157-g/prototype2/modulefunc.js'; //for github
 
 const inner = document.querySelector('.inner');
 
-window.addEventListener('load', getLocal);
+window.addEventListener('load', function() {
+  getLocal();
+  showPrev();
+});
 inner.addEventListener('mousedown', startPan);
 inner.addEventListener('mouseup', endPan);
 
-var checking = setInterval(update, 1000);
+let checking = setInterval(update, 1000);
 
 function update() {
   console.log('checking');
-  var hide = storage.getItem('hide');
-  var show = storage.getItem('show');
-  var i;
+  let hide = storage.getItem('hide');
+  let show = storage.getItem('show');
+  let i;
   if (hide != '') {
     console.log('update hide');
     hide = hide.split(',');
@@ -38,6 +42,7 @@ function update() {
       document.querySelector('#' + show[i]).style.opacity = 1;
       //add to showList
       appendStore('showList', ',', show[i]);
+      console.log(storage.getItem('showList'));
     }
     storage.setItem('show', '');
 
@@ -45,9 +50,9 @@ function update() {
 }
 
 function hideTile(tile) {
-  var list = storage.getItem('showList');
-  var n = list.search(tile);
-  var e = n + tile.length;
+  let list = storage.getItem('showList');
+  let n = list.search(tile);
+  let e = n + tile.length;
   if (e < list.length) { //not last val
     list = list.substring(0, n - 1) + list.substring(e);
   } else {

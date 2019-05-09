@@ -5,16 +5,16 @@ import * as m from '/des157-g/prototype2/modulefunc.js'; //for github
 const acc = document.querySelectorAll('.accordion');
 const but = document.querySelectorAll('.mode button');
 const inner = document.querySelector('.inner');
-// var initialX, initialY;
-// var offsetX = 0,
+// let initialX, initialY;
+// let offsetX = 0,
 //   offsetY = 0;
-var dragged,
+let dragged,
   curTile = '',
   storeTile;
-var rotateAmt = 0;
+let rotateAmt = 0;
 const storage = window.localStorage;
-var display;
-var showing = false;
+let display;
+let showing = false;
 
 
 window.addEventListener('load', function() {
@@ -41,22 +41,31 @@ document.querySelector('#display').addEventListener('click', function() {
   console.log(document.querySelector('body').className);
 
   window.open('display.html', 'app', 'resizable=yes');
-  var edit = document.querySelector('.edit');
+  let edit = document.querySelector('.edit');
   edit.style.display = 'block';
   document.querySelector('#edit').addEventListener('click', function() {
     location.reload();
   }); //return to edit page
   document.querySelector('#showhide').addEventListener('click', showAll); //showhide all tiles
-  var boxes = document.querySelectorAll('.box');
-  storage.setItem('show', ''); //blank entry to add too
-  storage.setItem('hide', '');
-  storage.setItem('showList', '');
-  storage.setItem('ignore', 'ignore,show,hide,showList');
+  let boxes = document.querySelectorAll('.box');
 
-  for (var i = 0; i < boxes.length; i++) {
+  for (let i = 0; i < boxes.length; i++) {
     boxes[i].style.opacity = .5;
     boxes[i].addEventListener('click', show);
   }
+
+  storage.setItem('show', ''); //blank entry to add too
+  storage.setItem('hide', '');
+  let showList = storage.getItem('showList');
+  if (showList === null) {
+    storage.setItem('showList', ''); //add showList if we don't have it
+  } else {
+    //show items in list
+    m.showPrev();
+  }
+
+  storage.setItem('ignore', 'ignore,show,hide,showList');
+
   declickTiles();
 });
 
@@ -94,10 +103,10 @@ function hide() {
 
 function showAll() {
   console.log('inside showAll')
-  var boxes = document.querySelectorAll('.box');
+  let boxes = document.querySelectorAll('.box');
   if (showing) { //need to hide tiles
     console.log('hiding all');
-    for (var i = 0; i < boxes.length; i++) {
+    for (let i = 0; i < boxes.length; i++) {
       if (boxes[i].style.opacity == 1) { //box is visible
         boxes[i].click(); //hide box;
       }
@@ -108,7 +117,7 @@ function showAll() {
     showing = false;
   } else { //need to show tiles
     console.log('showing all');
-    for (var i = 0; i < boxes.length; i++) {
+    for (let i = 0; i < boxes.length; i++) {
       if (boxes[i].style.opacity == .5) { //box is hidden
         boxes[i].click(); //show box;
       }
@@ -121,10 +130,10 @@ function showAll() {
 }
 
 //ACCORDION MENU
-for (var i = 0; i < acc.length; i++) {
+for (let i = 0; i < acc.length; i++) {
   acc[i].addEventListener('click', function() {
-    var icon = this.firstChild;
-    var panel = this.nextElementSibling;
+    let icon = this.firstChild;
+    let panel = this.nextElementSibling;
     if (panel.style.display === 'flex') {
       panel.style.display = 'none';
       icon.className = 'fas fa-caret-right';
@@ -178,13 +187,13 @@ but[1].addEventListener('click', function() { //pan
 });
 
 function clickTiles() {
-  for (var i = 0; i < m.tiles.length; i++) {
+  for (let i = 0; i < m.tiles.length; i++) {
     m.tiles[i].addEventListener('click', selectTile);
   }
 }
 
 function declickTiles() {
-  for (var i = 0; i < m.tiles.length; i++) {
+  for (let i = 0; i < m.tiles.length; i++) {
     m.tiles[i].removeEventListener('click', selectTile);
   }
 }
@@ -194,7 +203,7 @@ function startDrag(event) {
   console.log('startdrag');
   dragged = event.target;
   if (dragged.parentNode.className == 'box') {
-    var index = Array.from(dragged.parentNode.children).indexOf(dragged) - 2; //for selected icons
+    let index = Array.from(dragged.parentNode.children).indexOf(dragged) - 2; //for selected icons
     storeTile = m.getItems(dragged)[index];
     console.log(storeTile);
   } else {
@@ -225,7 +234,7 @@ function drop(event) {
   console.log('drop');
   event.preventDefault();
   console.log(storeTile);
-  var tile;
+  let tile;
   if (event.target.className == 'box' || event.target.nodeName == 'IMG') { //we are going to drop sucessfully
     if (dragged.parentNode.className == 'box') { //we can delete tile
       curTile = dragged;
@@ -241,10 +250,10 @@ function drop(event) {
       storage.setItem(event.target.id, storeTile);
       console.log(event.target.id + ',' + storeTile);
     } else if (event.target.nodeName == 'IMG') { //dragging on top of image
-      var targetType = event.target.className;
-      var dropType = dragged.className;
-      var parent = event.target.parentNode;
-      var count = parent.childElementCount;
+      let targetType = event.target.className;
+      let dropType = dragged.className;
+      let parent = event.target.parentNode;
+      let count = parent.childElementCount;
       tile = m.getTile(dragged);
       tile.addEventListener('click', selectTile);
       if (dropType == 'replace' && targetType == 'replace') { //replace tile
@@ -252,11 +261,11 @@ function drop(event) {
         parent.removeChild(event.target);
         storage.setItem(parent.id, storeTile);
       } else if (dropType == 'replace') { //targetType = layer
-        var noReplace = true;
-        var store = '';
-        var items = storage.getItem(parent.id);
+        let noReplace = true;
+        let store = '';
+        let items = storage.getItem(parent.id);
         items = items.split(',');
-        for (var i = 0; i < parent.children.length; i++) { //check if replace tile exists and replace it
+        for (let i = 0; i < parent.children.length; i++) { //check if replace tile exists and replace it
           if (parent.children[i].className == 'replace') {
             tile.style.top = parent.children[i].style.top;
             parent.replaceChild(tile, parent.children[i]);
@@ -299,13 +308,13 @@ function selectTile() {
     curTile = event.target;
     parent = event.target.parentNode;
     curTile.setAttribute('draggable', true);
-    var index = Array.from(curTile.parentNode.children).indexOf(curTile);
-    var item = m.getItems(curTile)[index].split(';');
+    let index = Array.from(curTile.parentNode.children).indexOf(curTile);
+    let item = m.getItems(curTile)[index].split(';');
     if (rotateAmt = item[1]) {} else {
       rotateAmt = 0;
     }
     //add delete icon
-    var xIcon = document.createElement('i');
+    let xIcon = document.createElement('i');
     xIcon.className = 'fas fa-times';
     xIcon.style.top = (parent.offsetTop) + 'px';
     xIcon.style.left = (parent.offsetLeft + 100) + 'px';
@@ -313,7 +322,7 @@ function selectTile() {
     parent.insertAdjacentElement('afterbegin', xIcon);
     xIcon.addEventListener('click', deleteTile);
     //add rotate icon
-    var rIcon = document.createElement('i');
+    let rIcon = document.createElement('i');
     rIcon.className = 'fas fa-undo fa-rotate-270 fa-sm';
     rIcon.style.top = (parent.offsetTop + xIcon.offsetHeight) + 'px';
     rIcon.style.left = (parent.offsetLeft + 100) + 'px';
@@ -333,12 +342,12 @@ function delesectTile() {
     curTile.parentNode.removeChild(curTile.parentNode.children[0]); //remove delete
     curTile.setAttribute('draggable', false);
     //save rotate
-    var index = Array.from(curTile.parentNode.children).indexOf(curTile);
-    var store = '';
-    var items = m.getItems(curTile);
+    let index = Array.from(curTile.parentNode.children).indexOf(curTile);
+    let store = '';
+    let items = m.getItems(curTile);
     items.splice(index, 1, curTile.id + ';' + rotateAmt); //replace with rotate
     store = items[0];
-    for (var i = 1; i < items.length; i++) {
+    for (let i = 1; i < items.length; i++) {
       store += ',' + items[i];
     }
     storage.setItem(parent.id, store);
@@ -349,22 +358,22 @@ function delesectTile() {
 }
 
 function deleteTile() {
-  var parent = curTile.parentNode;
+  let parent = curTile.parentNode;
   parent.removeChild(parent.children[0]); //remove rotate
   parent.removeChild(parent.children[0]); //remove delete
-  var index = Array.from(parent.children).indexOf(curTile);
+  let index = Array.from(parent.children).indexOf(curTile);
   console.log('node to delete/clone ' + curTile);
   console.log('parent: ' + curTile.parentNode);
-  var items = m.getItems(curTile);
+  let items = m.getItems(curTile);
   parent.removeChild(curTile);
   rotateAmt = 0;
   curTile = '';
 
   if (parent.children.length != 0) { //if still children update position and storage
-    for (var i = 0; i < parent.children.length; i++) {
+    for (let i = 0; i < parent.children.length; i++) {
       parent.children[i].style.top = (-100 * i) + 'px';
     } //fix offset
-    var store = removeItem(items, index);
+    let store = removeItem(items, index);
     storage.setItem(parent.id, store);
   } else { //no children remove storage
     storage.removeItem(parent.id);
@@ -372,10 +381,10 @@ function deleteTile() {
 }
 
 function removeItem(items, index) {
-  var store = '';
+  let store = '';
   items.splice(index, 1); //remove item to delete
   store = items[0];
-  for (var i = 1; i < items.length; i++) {
+  for (let i = 1; i < items.length; i++) {
     store += ',' + items[i];
   }
   console.log(store);
