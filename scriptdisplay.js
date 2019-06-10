@@ -3,7 +3,6 @@ import {
   startPan,
   endPan,
   storage,
-  showPrev,
   appendStore
 }
 from '/mapmaker/modulefunc.js'; //for github
@@ -12,8 +11,10 @@ from '/mapmaker/modulefunc.js'; //for github
 const inner = document.querySelector('.inner');
 
 window.addEventListener('load', function() {
+  console.log('showing tiles');
+  console.log(storage.getItem('showList'));
   getLocal();
-  showPrev();
+  // showPrev();
 });
 inner.addEventListener('mousedown', startPan);
 inner.addEventListener('mouseup', endPan);

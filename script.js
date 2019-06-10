@@ -61,13 +61,32 @@ document.querySelector('#display').addEventListener('click', function() {
     storage.setItem('showList', ''); //add showList if we don't have it
   } else {
     //show items in list
-    m.showPrev();
+    showPrev();
   }
 
   storage.setItem('ignore', 'ignore,show,hide,showList');
 
   declickTiles();
 });
+
+function showPrev() {
+  let showList = storage.getItem('showList');
+  console.log('showing prev');
+  console.log(showList);
+
+  showList = showList.split(',');
+  for (let i = 0; i < showList.length; i++) {
+    console.log(showList[i]);
+    if (showList[i] != '') {
+      let box = document.querySelector('#' + showList[i]);
+      console.log(box);
+      if (box.style.opacity != 1) { //box is hidden
+        console.log('clicking');
+        box.click(); //call show
+      }
+    }
+  }
+}
 
 function show() {
   console.log('showing ' + event.currentTarget.id);
@@ -104,13 +123,16 @@ function hide() {
 function showAll() {
   console.log('inside showAll')
   let boxes = document.querySelectorAll('.box');
+  let showList = "";
   if (showing) { //need to hide tiles
     console.log('hiding all');
     for (let i = 0; i < boxes.length; i++) {
       if (boxes[i].style.opacity == 1) { //box is visible
         boxes[i].click(); //hide box;
+        showList += ',' + boxes[i].id;
       }
     }
+    storage.setItem('showList', showList); //replace with list
     event.target.innerHTML = 'Show All';
     event.target.style.backgroundColor = '#DBDBDB';
     event.target.setAttribute('title', 'Show All Tiles');
@@ -120,8 +142,10 @@ function showAll() {
     for (let i = 0; i < boxes.length; i++) {
       if (boxes[i].style.opacity == .5) { //box is hidden
         boxes[i].click(); //show box;
+        showList += ',' + boxes[i].id;
       }
     }
+    storage.setItem('showList', showList); //replace with list
     event.target.innerHTML = 'Hide All';
     event.target.style.backgroundColor = '#909091';
     event.target.setAttribute('title', 'Hide All Tiles');
@@ -194,6 +218,7 @@ function clickTiles() {
 
 function declickTiles() {
   for (let i = 0; i < m.tiles.length; i++) {
+    // console.log(m.tiles[i]);
     m.tiles[i].removeEventListener('click', selectTile);
   }
 }
