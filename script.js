@@ -259,9 +259,11 @@ function drop(event) {
   console.log('drop');
   event.preventDefault();
   console.log(storeTile);
-  let tile;
+  let tile = m.getTile(dragged);
+  tile.addEventListener('click', selectTile);
+  tile.classList.add('inBox');
   if (event.target.className == 'box' || event.target.nodeName == 'IMG') { //we are going to drop sucessfully
-    if (dragged.parentNode.className == 'box') { //we can delete tile
+    if (dragged.parentNode.className == 'box') { //we can delete old tile
       curTile = dragged;
       console.log('node to delete/clone ' + curTile);
       console.log('parent: ' + curTile.parentNode);
@@ -269,30 +271,23 @@ function drop(event) {
     }
     if (event.target.className == 'box') { //dragging into empty square
       event.target.style.border = '';
-      tile = m.getTile(dragged);
-      tile.addEventListener('click', selectTile);
       event.target.appendChild(tile);
       storage.setItem(event.target.id, storeTile);
       console.log(event.target.id + ',' + storeTile);
     } else if (event.target.nodeName == 'IMG') { //dragging on top of image
       let targetType = event.target.className;
-      let dropType = dragged.className;
+      let dropType = dragged.classList.item(0);
+      console.log('list has ' + dragged.classList + 'dropType is ' + dropType);
       let parent = event.target.parentNode;
       let count = parent.childElementCount;
-      tile = m.getTile(dragged);
-      tile.addEventListener('click', selectTile);
-      if (dropType == 'replace' && targetType == 'replace') { //replace tile
-        parent.appendChild(tile);
-        parent.removeChild(event.target);
-        storage.setItem(parent.id, storeTile);
-      } else if (dropType == 'replace') { //targetType = layer
+      if (dropType == 'base' || dropType == 'replace') { //need to replace if needed
         let noReplace = true;
         let store = '';
         let items = storage.getItem(parent.id);
         items = items.split(',');
-        for (let i = 0; i < parent.children.length; i++) { //check if replace tile exists and replace it
-          if (parent.children[i].className == 'replace') {
-            tile.style.top = parent.children[i].style.top;
+        for (let i = 0; i < parent.children.length; i++) { //search for existing tile type
+          if (parent.children[i].classList.contains(dropType)) {
+            // tile.style.top = parent.children[i].style.top;
             parent.replaceChild(tile, parent.children[i]);
             noReplace = false;
             if (i == 0) {
@@ -309,17 +304,15 @@ function drop(event) {
           }
         }
         if (noReplace) { //if not append tile
-          tile.style.top = (-100 * count) + 'px';
+          // tile.style.top = (-100 * count) + 'px';
           parent.appendChild(tile);
           store += ',' + storeTile;
         }
         storage.setItem(parent.id, store);
-      } else { //dropType = layer we don't care whats already there
-        tile.style.top = (-100 * count) + 'px';
+      } else { //dropping layer, don't care about target
+        // tile.style.top = (-100 * count) + 'px';
         parent.appendChild(tile);
-        // console.log(storeTile);
         m.appendStore(parent.id, ',', storeTile);
-        // storage.setItem(parent.id, storage.getItem(parent.id) + ',' + storeTile);
       }
       console.log('Storing: ' + parent.id + ',' + storage.getItem(parent.id));
     }
@@ -341,16 +334,16 @@ function selectTile() {
     //add delete icon
     let xIcon = document.createElement('i');
     xIcon.className = 'fas fa-times';
-    xIcon.style.top = (parent.offsetTop) + 'px';
-    xIcon.style.left = (parent.offsetLeft + 100) + 'px';
+    xIcon.style.top = '0px';
+    xIcon.style.left = '100px';
 
     parent.insertAdjacentElement('afterbegin', xIcon);
     xIcon.addEventListener('click', deleteTile);
     //add rotate icon
     let rIcon = document.createElement('i');
     rIcon.className = 'fas fa-undo fa-rotate-270 fa-sm';
-    rIcon.style.top = (parent.offsetTop + xIcon.offsetHeight) + 'px';
-    rIcon.style.left = (parent.offsetLeft + 100) + 'px';
+    rIcon.style.top = (xIcon.offsetHeight) + 'px';
+    rIcon.style.left = '100px';
     parent.insertAdjacentElement('afterbegin', rIcon);
     rIcon.addEventListener('click', function(event) {
       rotateAmt = m.rotate(rotateAmt, curTile);
@@ -395,9 +388,9 @@ function deleteTile() {
   curTile = '';
 
   if (parent.children.length != 0) { //if still children update position and storage
-    for (let i = 0; i < parent.children.length; i++) {
-      parent.children[i].style.top = (-100 * i) + 'px';
-    } //fix offset
+    // for (let i = 0; i < parent.children.length; i++) {
+    //   parent.children[i].style.top = (-100 * i) + 'px';
+    // } //fix offset
     let store = removeItem(items, index);
     storage.setItem(parent.id, store);
   } else { //no children remove storage

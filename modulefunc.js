@@ -22,7 +22,7 @@ function getLocal(event) {
   console.log('page loaded');
   var keys = Object.keys(storage),
     key, box, items, tile, rotateAmt;
-
+  // console.log(keys);
   ignore = storage.getItem('ignore');
   if (ignore) {
     ignore = ignore.split(','); //set up ignore for checking
@@ -44,7 +44,9 @@ function getLocal(event) {
           console.log(item);
           tile = document.querySelector('#' + item[0]);
           tile = getTile(tile);
-          tile.style.top = (-100 * j) + 'px';
+          console.log(tile.classList);
+          tile.classList.add('inBox');
+          // tile.style.top = (-100 * j) + 'px';
           if (rotateAmt = item[1]) {
             rotateAmt--;
             rotate(rotateAmt, tile);
@@ -74,8 +76,8 @@ function validKey(key) {
 
 function getTile(toCopy) {
   var tile = toCopy.cloneNode();
-  tile.style.top = 0;
-  tile.style.left = 0;
+  // tile.style.top = 0;
+  // tile.style.left = 0;
   tile.setAttribute('draggable', false);
   tiles.push(tile); //used to add event listeners later
   return tile;

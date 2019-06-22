@@ -129,6 +129,7 @@ main {
   border: 1px solid #909091;
   width: 100px;
   height: 100px;
+  position: relative;
 }
 
 .grey {
@@ -194,13 +195,18 @@ section img {
   border: 2px dashed #DBDBDB;
 }
 
-.layer {
-  z-index: 2;
-  position: relative;
+.inBox {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .replace {
-  position: relative;
+  z-index: 1;
+}
+
+.layer {
+  z-index: 2;
 }
 
 .done {
