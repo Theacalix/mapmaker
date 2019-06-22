@@ -5,8 +5,8 @@ import {
   storage,
   appendStore
 }
-// from '/mapmaker/modulefunc.js'; //for github
-from '/modulefunc.js'; //for local
+from '/mapmaker/modulefunc.js'; //for github
+// from '/modulefunc.js'; //for local
 
 const inner = document.querySelector('.inner');
 

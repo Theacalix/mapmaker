@@ -1,7 +1,7 @@
 'use strict';
 console.log('reading js');
-// import * as m from '/mapmaker/modulefunc.js'; //for github
-import * as m from '/modulefunc.js'; //for local
+import * as m from '/mapmaker/modulefunc.js'; //for github
+// import * as m from '/modulefunc.js'; //for local
 const acc = document.querySelectorAll('.accordion');
 const but = document.querySelectorAll('.mode button');
 const inner = document.querySelector('.inner');
