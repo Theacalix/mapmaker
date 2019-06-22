@@ -1,7 +1,7 @@
 'use strict';
 console.log('reading js');
-import * as m from '/mapmaker/modulefunc.js'; //for github
-// import * as m from '/modulefunc.js'; //for local
+// import * as m from '/mapmaker/modulefunc.js'; //for github
+import * as m from '/modulefunc.js'; //for local
 const acc = document.querySelectorAll('.accordion');
 const but = document.querySelectorAll('.mode button');
 const inner = document.querySelector('.inner');
@@ -15,12 +15,18 @@ let rotateAmt = 0;
 const storage = window.localStorage;
 let display;
 let showing = false;
+let inDisplay = 'false';
 
 
 window.addEventListener('load', function() {
   m.getLocal();
   console.log(m.tiles);
+  //TOOD: check display before calling click tiles
+  // if (storage.getItem('display') == 'true') {
+  //   document.querySelector('#display').click(); //turn on display
+  // } else {
   clickTiles();
+  // }
 });
 document.addEventListener('dragstart', startDrag);
 document.addEventListener('dragover', overDrag);
@@ -44,6 +50,7 @@ document.querySelector('#display').addEventListener('click', function() {
   let edit = document.querySelector('.edit');
   edit.style.display = 'block';
   document.querySelector('#edit').addEventListener('click', function() {
+    inDisplay = 'false';
     location.reload();
   }); //return to edit page
   document.querySelector('#showhide').addEventListener('click', showAll); //showhide all tiles
@@ -64,9 +71,11 @@ document.querySelector('#display').addEventListener('click', function() {
     showPrev();
   }
 
-  storage.setItem('ignore', 'ignore,show,hide,showList');
+  storage.setItem('ignore', 'ignore,show,hide,showList,display');
 
-  declickTiles();
+  declickTiles(); //declick selecttiles
+  // storage.setItem('display', 'true');
+  inDisplay = 'true';
 });
 
 function showPrev() {
@@ -211,15 +220,46 @@ but[1].addEventListener('click', function() { //pan
 });
 
 function clickTiles() {
-  for (let i = 0; i < m.tiles.length; i++) {
-    m.tiles[i].addEventListener('click', selectTile);
+  // let inDisplay = storage.getItem('display');
+  // if(inDisplay == undefined) { //not needed
+  //   inDisplay = 'false';
+  // }
+  if (inDisplay == 'true') { //add show hide event listeners
+    console.log('adding show hide events for display mode');
+    let boxes = document.querySelectorAll('.box');
+    for (let i = 0; i < boxes.length; i++) {
+      if (boxes[i].style.opacity == .5) {
+        boxes[i].addEventListener('click', show);
+      } else {
+        boxes[i].addEventListener('click', hide);
+      }
+    }
+  } else { //add select tile event listeners
+    console.log('adding selectTile events for edit mode');
+    for (let i = 0; i < m.tiles.length; i++) {
+      m.tiles[i].addEventListener('click', selectTile);
+    }
   }
 }
 
 function declickTiles() {
-  for (let i = 0; i < m.tiles.length; i++) {
-    // console.log(m.tiles[i]);
-    m.tiles[i].removeEventListener('click', selectTile);
+  // let inDisplay = storage.getItem('display');
+  if (inDisplay == 'true') {
+    console.log('removing show hide events for display mode');
+    let boxes = document.querySelectorAll('.box');
+    for (let i = 0; i < boxes.length; i++) {
+      if (boxes[i].style.opacity == .5) {
+        boxes[i].removeEventListener('click', show);
+      } else {
+        boxes[i].removeEventListener('click', hide);
+      }
+    }
+  } else {
+    console.log('removing selectTile events for edit mode');
+    for (let i = 0; i < m.tiles.length; i++) {
+      // console.log(m.tiles[i]);
+      m.tiles[i].removeEventListener('click', selectTile);
+    }
   }
 }
 //CLICK MODE
